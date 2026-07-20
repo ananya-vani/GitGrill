@@ -145,7 +145,7 @@ main {
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  padding: 24px 20px 24px;
+  padding: 24px 20px 54px;
 }
 .hero {
   width: 100%;
