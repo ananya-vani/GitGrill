@@ -7,6 +7,7 @@ const loadingMessages = [
   "🌶️ Adding the perfect amount of spice...",
   "💀 Preparing emotional damage...",
 ];
+const logo = document.getElementById("logo");
 const input = document.getElementById("usernameInput");
 const button = document.getElementById("searchBtn");
 const avatar = document.getElementById("profileAvatar");
@@ -42,6 +43,9 @@ input.addEventListener("keydown", (event) => {
   if (event.key === "Enter" && !button.disabled) {
     button.click();
   }
+});
+logo.addEventListener("click", () => {
+  window.location.reload();
 });
 copyBtn.addEventListener("click", async () => {
   if (!currentRoast) return;
