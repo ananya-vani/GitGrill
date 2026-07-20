@@ -296,6 +296,7 @@ main {
   width: 100%;
   max-width: 650px;
   margin-top: 6px;
+  margin-bottom: 80px;
   display: flex;
   gap: 12px;
 }
