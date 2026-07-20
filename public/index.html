@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitGrill</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="captureArea">
+      <header>
+        <div class="logo">
+          <img src="assets/logo.png" alt="GitGrill Logo" />
+
+          <h2><span class="git">Git</span><span class="grill">Grill</span></h2>
+        </div>
+        <div class="header-actions">
+          <div class="community-pill">
+            <div class="icon-wrapper">
+              <svg
+                class="users-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M3.5 8a5.5 5.5 0 1 1 8.596 4.547 9.005 9.005 0 0 1 5.9 8.18.751.751 0 0 1-1.5.045 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.499-.044 9.005 9.005 0 0 1 5.9-8.181A5.496 5.496 0 0 1 3.5 8ZM9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm8.29 4c-.148 0-.292.01-.434.03a.75.75 0 1 1-.212-1.484 4.53 4.53 0 0 1 3.38 8.097 6.69 6.69 0 0 1 3.956 6.107.75.75 0 0 1-1.5 0 5.193 5.193 0 0 0-3.696-4.972l-.534-.16v-1.676l.41-.209A3.03 3.03 0 0 0 17.29 8Z"
+                />
+              </svg>
+            </div>
+
+            <span class="grill-text" id="grillCount">0 Grills</span>
+          </div>
+
+          <button class="profile-btn" aria-label="GitHub Profile">
+            <a id="profileLink" href="#" target="_blank"
+              ><img
+                id="profileAvatar"
+                src="assets/avatarGithub.png"
+                alt="Profile"
+            /></a>
+          </button>
+        </div>
+      </header>
+      <main>
+        <section class="hero">
+          <h1><span class="git">Git</span><span class="grill">Grill</span></h1>
+
+          <p class="description">Where commits meet karma</p>
+
+          <div class="search-box">
+            <input
+              id="usernameInput"
+              type="text"
+              placeholder="Enter GitHub username..."
+            />
+
+            <div class="search-actions">
+              <button
+                class="submit-btn"
+                id="searchBtn"
+                aria-label="Grill Profile"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="submit-icon"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M1.513 1.96a1.374 1.374 0 0 1 1.499-.21l19.335 9.215a1.147 1.147 0 0 1 0 2.07L3.012 22.25a1.374 1.374 0 0 1-1.947-1.46L2.49 12 1.065 3.21a1.375 1.375 0 0 1 .448-1.25Zm2.375 10.79-1.304 8.042L21.031 12 2.584 3.208l1.304 8.042h7.362a.75.75 0 0 1 0 1.5Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p class="tagline" id="statusText">Roast your GitHub profile</p>
+          <div id="loadingSection" class="loading-section hidden">
+            <div class="loader" id="loader"></div>
+            <p id="loadingText">Preparing your roast...</p>
+          </div>
+          <div id="roastCard" class="hidden">
+            <p id="roastText"></p>
+          </div>
+          <div id="actionButtons" class="hidden">
+            <button class="action-btn" id="copyBtn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"
+                />
+                <path
+                  d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"
+                />
+              </svg>
+
+              Copy
+            </button>
+
+            <button class="action-btn" id="downloadBtn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M11.25 9.331V.75a.75.75 0 0 1 1.5 0v8.58l1.949-2.11A.75.75 0 1 1 15.8 8.237l-3.25 3.52a.75.75 0 0 1-1.102 0l-3.25-3.52A.75.75 0 1 1 9.3 7.22l1.949 2.111Z"
+                />
+                <path
+                  d="M2.5 3.75v11.5c0 .138.112.25.25.25h18.5a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25h-5.5a.75.75 0 0 1 0-1.5h5.5c.966 0 1.75.784 1.75 1.75v11.5A1.75 1.75 0 0 1 21.25 17h-6.204c.171 1.375.805 2.652 1.769 3.757A.752.752 0 0 1 16.25 22h-8.5a.75.75 0 0 1-.566-1.243c.965-1.105 1.599-2.382 1.77-3.757H2.75A1.75 1.75 0 0 1 1 15.25V3.75C1 2.784 1.784 2 2.75 2h5.5a.75.75 0 0 1 0 1.5h-5.5a.25.25 0 0 0-.25.25Z"
+                />
+              </svg>
+
+              Download
+            </button>
+
+            <button class="action-btn" id="shareBtn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M20 5.5a3.498 3.498 0 0 1-6.062 2.385l-5.112 3.021a3.498 3.498 0 0 1 0 2.188l5.112 3.021a3.5 3.5 0 1 1-.764 1.29l-5.112-3.02a3.499 3.499 0 1 1-3.843-5.642 3.499 3.499 0 0 1 3.843.872l5.112-3.021A3.5 3.5 0 1 1 20 5.5Z"
+                />
+              </svg>
+
+              Share
+            </button>
+          </div>
+        </section>
+      </main>
+      <footer id="roastFooter">
+        <svg
+          class="footer-heart"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill="currentColor"
+            d="M8 14s6-3.686 6-8A3.5 3.5 0 0 0 8 3.243 3.5 3.5 0 0 0 2 6c0 4.314 6 8 6 8Z"
+          />
+        </svg>
+
+        <span> Crafted by <strong>Ananya Vani</strong> </span>
+      </footer>
+    </div>
+    <!-- Universal Modal -->
+
+    <div id="modalOverlay" class="hidden">
+      <div id="modal">
+        <button id="closeModal" aria-label="Close">✕</button>
+
+        <div id="modalContent">
+          <h3 id="modalTitle">Text Copied</h3>
+
+          <p id="modalMessage">Your roast has been copied successfully.</p>
+
+          <!-- Screenshot preview will appear here -->
+          <img id="modalImage" class="hidden" alt="Roast Preview" />
+
+          <button id="modalAction">Share</button>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <div id="downloadCard" class="download-card">
+      <div class="download-header">
+        <div class="logo">
+          <img src="assets/logo.png" />
+          <h2><span class="git">Git</span><span class="grill">Grill</span></h2>
+        </div>
+
+        <img id="downloadAvatar" class="download-avatar" src="" />
+      </div>
+
+      <div class="download-body">
+        <h1><span class="git">Git</span><span class="grill">Grill</span></h1>
+
+        <p class="tagline">Where commits meet karma.</p>
+
+        <div class="download-username">
+          <span id="downloadUsername"></span>
+        </div>
+
+        <div class="download-roast">
+          <p id="downloadRoast"></p>
+        </div>
+      </div>
+
+      <footer class="download-footer">
+        <svg
+          class="footer-heart"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill="currentColor"
+            d="M8 14s6-3.686 6-8A3.5 3.5 0 0 0 8 3.243 3.5 3.5 0 0 0 2 6c0 4.314 6 8 6 8Z"
+          />
+        </svg>
+
+        Crafted by <strong>Ananya Vani</strong>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
