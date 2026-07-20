@@ -35,162 +35,12 @@ const modalImage = document.getElementById("modalImage");
 const url = window.location.origin;
 let currentRoast = "";
 let currentScreenshot = "";
+let loadingInterval;
 
 button.addEventListener("click", handleSearch);
-function handleSearch() {
-  const username = input.value.trim();
-  if (window.innerWidth < 768) {
-    input.blur();
-  }
-  if (username === "") {
-    clearInterval(loadingInterval);
-    loadingSection.classList.add("hidden");
-    statusText.classList.remove("hidden");
-    statusText.textContent =
-      "🤨 Planning to roast invisible developers? Enter a username first.";
-    return;
-  }
-  fetchGitHubProfile(username);
-}
 input.addEventListener("keydown", (event) => {
   if (event.key === "Enter" && !button.disabled) {
     button.click();
-  }
-});
-let loadingInterval;
-
-function startLoadingMessages() {
-  clearInterval(loadingInterval);
-  let index = 0;
-  loadingText.textContent = loadingMessages[index];
-
-  loadingInterval = setInterval(() => {
-    if (index < loadingMessages.length - 1) {
-      index++;
-      loadingText.textContent = loadingMessages[index];
-    }
-  }, 800);
-}
-async function fetchGitHubProfile(username) {
-  try {
-    clearInterval(loadingInterval);
-
-    roastCard.classList.add("hidden");
-    actionButtons.classList.add("hidden");
-    roastText.textContent = "";
-    currentRoast = "";
-    statusText.classList.remove("hidden");
-    statusText.textContent = "";
-    loadingSection.classList.remove("hidden");
-    loader.classList.remove("hidden");
-    loadingText.textContent = loadingMessages[0];
-    button.disabled = true;
-    button.style.pointerEvents = "none";
-    button.style.opacity = "0.6";
-
-    const response = await fetch(`https://api.github.com/users/${username}`);
-
-    if (!response.ok) {
-      clearInterval(loadingInterval);
-      loader.classList.add("hidden");
-      loadingSection.classList.add("hidden");
-      statusText.classList.remove("hidden");
-      statusText.textContent = "😅 That GitHub profile doesn't exist.";
-      button.disabled = false;
-      button.style.pointerEvents = "";
-      button.style.opacity = "";
-      return;
-    }
-    const user = await response.json();
-
-    avatar.src = user.avatar_url;
-    profileLink.href = user.html_url;
-
-    startLoadingMessages();
-    const result = await generateRoast({
-      username,
-    });
-
-    clearInterval(loadingInterval);
-
-    loadingSection.classList.add("hidden");
-    statusText.classList.add("hidden");
-    roastCard.classList.remove("hidden");
-    roastText.textContent = result.roast;
-    currentRoast = result.roast;
-
-    grillCount.textContent = `${result.totalGrills.toLocaleString()} Grills`;
-
-    actionButtons.classList.remove("hidden");
-    button.disabled = false;
-    button.style.pointerEvents = "";
-    button.style.opacity = "";
-  } catch (error) {
-    console.error(error);
-    clearInterval(loadingInterval);
-    loadingSection.classList.add("hidden");
-    loader.classList.add("hidden");
-    statusText.classList.remove("hidden");
-    statusText.textContent =
-      "💀 GitGrill accidentally roasted itself. Try again.";
-    button.disabled = false;
-    button.style.pointerEvents = "";
-    button.style.opacity = "";
-  }
-}
-async function generateRoast(data) {
-  const response = await fetch("/roast", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || "Failed to generate roast");
-  }
-
-  const result = await response.json();
-  return result;
-}
-function openModal({
-  title,
-  message,
-  actionText,
-  actionFunction,
-  image = null,
-}) {
-  modalTitle.textContent = title;
-  modalAction.textContent = actionText;
-  modalAction.onclick = actionFunction;
-
-  if (image) {
-    modalImage.src = image;
-
-    modalImage.classList.remove("hidden");
-  } else {
-    modalImage.classList.add("hidden");
-  }
-  if (message) {
-    modalMessage.textContent = message;
-    modalMessage.style.display = "block";
-  } else {
-    modalMessage.style.display = "none";
-  }
-  modalOverlay.classList.remove("hidden");
-}
-
-function closeModalBox() {
-  modalOverlay.classList.add("hidden");
-}
-
-closeModal.addEventListener("click", closeModalBox);
-
-modalOverlay.addEventListener("click", (e) => {
-  if (e.target === modalOverlay) {
-    closeModalBox();
   }
 });
 copyBtn.addEventListener("click", async () => {
@@ -256,6 +106,174 @@ shareBtn.addEventListener("click", async () => {
     });
   }
 });
+closeModal.addEventListener("click", closeModalBox);
+modalOverlay.addEventListener("click", (e) => {
+  if (e.target === modalOverlay) {
+    closeModalBox();
+  }
+});
+
+function handleSearch() {
+  const username = input.value.trim();
+  if (window.innerWidth < 768) {
+    input.blur();
+  }
+  if (username === "") {
+    clearInterval(loadingInterval);
+    loadingSection.classList.add("hidden");
+    statusText.classList.remove("hidden");
+    statusText.textContent =
+      "🤨 Planning to roast invisible developers? Enter a username first.";
+    return;
+  }
+  fetchGitHubProfile(username);
+}
+async function fetchGitHubProfile(username) {
+  try {
+    clearInterval(loadingInterval);
+
+    roastCard.classList.add("hidden");
+    actionButtons.classList.add("hidden");
+    roastText.textContent = "";
+    currentRoast = "";
+    statusText.classList.remove("hidden");
+    statusText.textContent = "";
+    loadingSection.classList.remove("hidden");
+    loader.classList.remove("hidden");
+    loadingText.textContent = loadingMessages[0];
+    button.disabled = true;
+    button.style.pointerEvents = "none";
+    button.style.opacity = "0.6";
+
+    const response = await fetch(`https://api.github.com/users/${username}`);
+
+    if (!response.ok) {
+      clearInterval(loadingInterval);
+      loader.classList.add("hidden");
+      loadingSection.classList.add("hidden");
+      statusText.classList.remove("hidden");
+      statusText.textContent = "😅 That GitHub profile doesn't exist.";
+      button.disabled = false;
+      button.style.pointerEvents = "";
+      button.style.opacity = "";
+      return;
+    }
+    const user = await response.json();
+
+    avatar.src = user.avatar_url;
+    profileLink.href = user.html_url;
+
+    startLoadingMessages();
+    const result = await generateRoast({
+      username,
+    });
+
+    clearInterval(loadingInterval);
+
+    loadingSection.classList.add("hidden");
+    statusText.classList.add("hidden");
+    roastCard.classList.remove("hidden");
+    roastText.textContent = result.roast;
+    currentRoast = result.roast;
+
+    const total = result.totalGrills ?? 0;
+
+    if (total <= 0) {
+      grillCount.textContent = "Grills";
+    } else if (total === 1) {
+      grillCount.textContent = "1 Grill";
+    } else {
+      grillCount.textContent = `${total.toLocaleString()} Grills`;
+    }
+
+    actionButtons.classList.remove("hidden");
+    button.disabled = false;
+    button.style.pointerEvents = "";
+    button.style.opacity = "";
+  } catch (error) {
+    console.error(error);
+    clearInterval(loadingInterval);
+    loadingSection.classList.add("hidden");
+    loader.classList.add("hidden");
+    statusText.classList.remove("hidden");
+    statusText.textContent =
+      "💀 GitGrill accidentally roasted itself. Try again.";
+    button.disabled = false;
+    button.style.pointerEvents = "";
+    button.style.opacity = "";
+  }
+}
+
+async function loadGrillCount() {
+  try {
+    const response = await fetch("/grills");
+    const data = await response.json();
+
+    grillCount.textContent = `${data.totalGrills.toLocaleString()} Grills`;
+  } catch (err) {
+    console.error(err);
+  }
+}
+async function generateRoast(data) {
+  const response = await fetch("/roast", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to generate roast");
+  }
+
+  return await response.json();
+}
+function startLoadingMessages() {
+  clearInterval(loadingInterval);
+  let index = 0;
+  loadingText.textContent = loadingMessages[index];
+
+  loadingInterval = setInterval(() => {
+    if (index < loadingMessages.length - 1) {
+      index++;
+      loadingText.textContent = loadingMessages[index];
+    }
+  }, 800);
+}
+
+function openModal({
+  title,
+  message,
+  actionText,
+  actionFunction,
+  image = null,
+}) {
+  modalTitle.textContent = title;
+  modalAction.textContent = actionText;
+  modalAction.onclick = actionFunction;
+
+  if (image) {
+    modalImage.src = image;
+
+    modalImage.classList.remove("hidden");
+  } else {
+    modalImage.classList.add("hidden");
+  }
+  if (message) {
+    modalMessage.textContent = message;
+    modalMessage.style.display = "block";
+  } else {
+    modalMessage.style.display = "none";
+  }
+  modalOverlay.classList.remove("hidden");
+}
+
+function closeModalBox() {
+  modalOverlay.classList.add("hidden");
+}
+
 async function shareRoast() {
   if (navigator.share) {
     await navigator.share({
@@ -330,3 +348,5 @@ async function shareImage() {
     });
   }
 }
+
+loadGrillCount();

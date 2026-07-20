@@ -29,7 +29,7 @@
               </svg>
             </div>
 
-            <span class="grill-text" id="grillCount">0 Grills</span>
+            <span class="grill-text" id="grillCount">Grills</span>
           </div>
 
           <button class="profile-btn" aria-label="GitHub Profile">
@@ -122,22 +122,23 @@
           </div>
         </section>
       </main>
-      <footer id="roastFooter">
-        <svg
-          class="footer-heart"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill="currentColor"
-            d="M8 14s6-3.686 6-8A3.5 3.5 0 0 0 8 3.243 3.5 3.5 0 0 0 2 6c0 4.314 6 8 6 8Z"
-          />
-        </svg>
+      <footer class="roastFooter">
+        <div class="footer-content">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            class="footer-heart"
+            aria-hidden="true"
+          >
+            <path
+              d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16Zm2.33-11.5c-1.22 0-1.83.5-2.323 1.136C7.513 5 6.903 4.5 5.682 4.5c-1.028 0-2.169.784-2.169 2.5 0 1.499 1.493 3.433 3.246 4.517.52.321.89.479 1.248.484.357-.005.728-.163 1.247-.484C11.007 10.433 12.5 8.5 12.5 7c0-1.716-1.14-2.5-2.17-2.5Z"
+            />
+          </svg>
 
-        <span> Crafted by <strong>Ananya Vani</strong> </span>
+          <span>© 2026 <strong>Ananya Vani</strong></span>
+        </div>
       </footer>
     </div>
-    <!-- Universal Modal -->
 
     <div id="modalOverlay" class="hidden">
       <div id="modal">
@@ -148,7 +149,6 @@
 
           <p id="modalMessage">Your roast has been copied successfully.</p>
 
-          <!-- Screenshot preview will appear here -->
           <img id="modalImage" class="hidden" alt="Roast Preview" />
 
           <button id="modalAction">Share</button>
@@ -180,19 +180,21 @@
         </div>
       </div>
 
-      <footer class="download-footer">
-        <svg
-          class="footer-heart"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill="currentColor"
-            d="M8 14s6-3.686 6-8A3.5 3.5 0 0 0 8 3.243 3.5 3.5 0 0 0 2 6c0 4.314 6 8 6 8Z"
-          />
-        </svg>
+      <footer class="roastFooter">
+        <div class="footer-content">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            class="footer-heart"
+            aria-hidden="true"
+          >
+            <path
+              d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16Zm2.33-11.5c-1.22 0-1.83.5-2.323 1.136C7.513 5 6.903 4.5 5.682 4.5c-1.028 0-2.169.784-2.169 2.5 0 1.499 1.493 3.433 3.246 4.517.52.321.89.479 1.248.484.357-.005.728-.163 1.247-.484C11.007 10.433 12.5 8.5 12.5 7c0-1.716-1.14-2.5-2.17-2.5Z"
+            />
+          </svg>
 
-        Crafted by <strong>Ananya Vani</strong>
+          <span>© 2026 <strong>Ananya Vani</strong></span>
+        </div>
       </footer>
     </div>
     <script src="script.js"></script>

@@ -18,7 +18,17 @@ app.use(express.json({ limit: "1mb" }));
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
+const { getTotalGrills } = require("./supabase");
 
+app.get("/grills", async (req, res) => {
+  try {
+    const totalGrills = await getTotalGrills();
+    res.json({ totalGrills });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ totalGrills: 0 });
+  }
+});
 app.post("/roast", async (req, res) => {
   try {
     const username = req.body.username?.trim();
@@ -29,17 +39,13 @@ app.post("/roast", async (req, res) => {
       });
     }
 
-    // Fetch GitHub Data
     const restData = await getGitHubRESTData(username);
     const graphData = await getGitHubGraphData(username);
 
-    // Analyze Profile
     const profile = analyzeProfile(restData, graphData);
 
-    // Build AI Prompt
     const messages = buildPrompt(profile);
 
-    // Generate Roast
     const response = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       messages,
@@ -51,8 +57,9 @@ app.post("/roast", async (req, res) => {
       response.choices?.[0]?.message?.content ??
       "GitGrill couldn't roast this profile.";
 
-    // Update Grill Counter
     const totalGrills = await incrementGrills();
+
+    console.log("🔥 Total Grills:", totalGrills);
 
     res.json({
       roast,

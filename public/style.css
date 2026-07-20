@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 * {
   margin: 0;
@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #010409;
+  background: #010409;
   color: #f0f6fc;
   font-family: "Inter", sans-serif;
   min-height: 100vh;
@@ -47,7 +47,6 @@ header {
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.5px;
-  margin: 0;
   line-height: 1;
 }
 .git {
@@ -71,9 +70,9 @@ header {
   justify-content: center;
   gap: 0;
   padding: 0;
-  border: 1px solid #30363d; /* GitHub border */
-  border-radius: 6px; /* GitHub radius */
-  background: #010409; /* Same as GitHub */
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  background: #010409;
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
@@ -140,9 +139,9 @@ header {
 main {
   position: fixed;
   top: 64px;
-  bottom: 46px;
   left: 0;
   right: 0;
+  bottom: 46px;
   overflow-y: auto;
   display: flex;
   justify-content: center;
@@ -312,10 +311,9 @@ main {
   border-radius: 12px;
   color: #eaf2f9;
   font-size: 14px;
-  font-weight: 100;
   cursor: pointer;
   transition:
-    background 0.2s ease,
+    background-color 0.2s ease,
     border-color 0.2s ease,
     transform 0.15s ease;
 }
@@ -336,34 +334,49 @@ main {
 .action-btn:active {
   transform: scale(0.97);
 }
-.action-btn span {
-  font-size: 16px;
-}
 
-#roastFooter {
+.roastFooter {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 40px;
+  height: 46px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
   background: #010409;
   border-top: 1px solid #30363d;
   color: #8b949e;
   font-size: 14px;
   z-index: 1000;
 }
-#roastFooter strong {
-  color: #f0f6fc;
-  font-weight: 600;
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
+
 .footer-heart {
   width: 16px;
   height: 16px;
-  color: #ff7b00;
+  fill: #ff7b00;
+}
+
+.footer-content span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-content strong {
+  color: #f0f6fc;
+  font-weight: 600;
+}
+.download-card .roastFooter {
+  position: static;
+  height: 48px;
+  border-top: 1px solid #30363d;
 }
 
 #modalOverlay {
@@ -449,7 +462,6 @@ main {
   border: 1px solid #30363d;
   border-radius: 22px;
   overflow: hidden;
-  font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: column;
 }
@@ -519,19 +531,6 @@ main {
   line-height: 1.8;
   color: #f0f6fc;
   text-align: justify;
-}
-.download-footer {
-  height: 48px;
-  border-top: 1px solid #30363d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  color: #8b949e;
-  font-size: 14px;
-}
-.download-footer strong {
-  color: #f0f6fc;
 }
 
 @keyframes spin {
