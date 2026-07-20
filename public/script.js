@@ -13,6 +13,7 @@ const button = document.getElementById("searchBtn");
 const avatar = document.getElementById("profileAvatar");
 const profileLink = document.getElementById("profileLink");
 const grillCount = document.getElementById("grillCount");
+const input = document.getElementById("usernameInput");
 const statusText = document.getElementById("statusText");
 const loadingSection = document.getElementById("loadingSection");
 const loadingText = document.getElementById("loadingText");
@@ -38,6 +39,10 @@ let currentRoast = "";
 let currentScreenshot = "";
 let loadingInterval;
 
+input.setAttribute("spellcheck", "false");
+input.setAttribute("autocorrect", "off");
+input.setAttribute("autocapitalize", "none");
+input.setAttribute("autocomplete", "off");
 button.addEventListener("click", handleSearch);
 input.addEventListener("keydown", (event) => {
   if (event.key === "Enter" && !button.disabled) {
