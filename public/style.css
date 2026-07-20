@@ -4,6 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #30363d #010409;
 }
 body {
   background: #010409;
@@ -145,7 +147,7 @@ main {
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  padding: 24px 20px 54px;
+  padding: 24px 20px 140px;
 }
 .hero {
   width: 100%;
@@ -157,6 +159,7 @@ main {
   margin: 0;
   padding: 0 0 20px;
   animation: fadeUp 0.8s ease;
+  padding-bottom: 120px;
 }
 .hero h1 {
   font-size: 3.1rem;
@@ -296,7 +299,6 @@ main {
   width: 100%;
   max-width: 650px;
   margin-top: 6px;
-  margin-bottom: 120px;
   display: flex;
   gap: 12px;
 }
@@ -561,4 +563,22 @@ main {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #010409;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 999px;
+  border: 2px solid #010409;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
 }
